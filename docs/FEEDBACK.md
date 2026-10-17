@@ -14,4 +14,7 @@
 
 ## P4-P10
 - Modules scaffolded; pages wired; tests added; design tokens applied; docs written. No changes requested.
+
+## React Migration
+- User replied "go" with no changes. React+Vite+TS migration complete with all pages, routing, design tokens, Vite proxy.
 EOF

@@ -11,4 +11,5 @@
 - [x] P8 Khata Suraksha: Claim Kit, Kharid Check, Mitra mode.
 - [x] P9 Shock chain: /shock and Jhatka panel.
 - [x] P10 Polish: design pass, accessibility, Playwright smoke, README and all docs, final tag v1.0.0.
+- [x] React Migration: React+Vite+TS+Tailwind scaffold, all pages as components, routing, Vite proxy, Makefile/dev.py updated. Tagged v1.1.0.
 EOF
