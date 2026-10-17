@@ -34,9 +34,24 @@ mic.onclick=()=>{if(recognition)recognition.start();};
 async function send(text){
   const r=await fetch('http://127.0.0.1:8000/voice/parse',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
   const d=await r.json();
+  transcript.textContent=JSON.stringify(d.parsed);
   if(d.status==='confirm') confirmBox.style.display='block';
+  sessionId=d.session_id;
 }
-async function confirm(ans){/* call /voice/confirm */ confirmBox.style.display='none';}
+let sessionId=null;
+async function confirm(ans){
+  const r=await fetch('http://127.0.0.1:8000/voice/confirm',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({session_id:sessionId,answer:ans})});
+  const d=await r.json();
+  transcript.textContent=d.status;
+  confirmBox.style.display='none';
+  loadLogbook();
+}
+async function loadLogbook(){
+  const r=await fetch('http://127.0.0.1:8000/logbook');
+  const d=await r.json();
+  transcript.textContent+=' | entries: '+d.length;
+}
+document.getElementById('typed').addEventListener('keydown',e=>{if(e.key==='Enter')send(e.target.value);});
 </script>
 </body>
 </html>
