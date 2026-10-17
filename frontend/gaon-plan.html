@@ -2,9 +2,11 @@
 <html lang="hi">
 <head><meta charset="utf-8"><title>Gaon Plan</title>
 <style>
-body{font-family:sans-serif;background:#F4EFE3;color:#1E1B16;margin:20px;}
-svg{border:1px solid #8A9096;}
-.drawer{border:1px solid #8A9096;padding:10px;margin-top:10px;display:none;}
+:root{--paper:#F4EFE3;--ink:#1E1B16;--field:#3F5E3A;--turmeric:#C98A12;--terracotta:#B4492D;--indigo:#2F3E6B;--river:#8A9096;}
+body{font-family:sans-serif;background:var(--paper);color:var(--ink);margin:20px;font-size:18px;}
+button{min-height:48px;padding:10px 16px;font-size:18px;}
+svg{border:1px solid var(--river);}
+.drawer{border:1px solid var(--river);padding:10px;margin-top:10px;display:none;}
 </style>
 </head>
 <body>
@@ -12,14 +14,7 @@ svg{border:1px solid #8A9096;}
 <p>नमूना डेटा / Sample data · सिमुलेशन</p>
 <svg width="600" height="400" id="map"></svg>
 <button onclick="runPlan()">Run Plan</button>
-<script>
-async function runPlan(){
-  const r=await fetch('http://127.0.0.1:8000/glut/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plots:[{id:1,area:1,crop:'wheat',week:0,moved_last:false}],crop_params:{wheat:{P0:2000,yield:10,cost:500,weeks:[0,1],demand:50}}})});
-  const d=await r.json();
-  document.getElementById('kyun').textContent=JSON.stringify(d);
-  document.getElementById('kyun').style.display='block';
-}
-function showKyun(){document.getElementById('kyun').style.display='block';}
+<div class="drawer" id="kyun">Is plot ko wheat week 2 assign kiya: expected profit vs baseline.</div>
 <table id="plan"><tr><th>Plot</th><th>Crop</th><th>Week</th><th>Profit vs baseline</th></tr></table>
 <script>
 const svg=document.getElementById('map');
@@ -30,6 +25,12 @@ plots.forEach((p,i)=>{
   r.setAttribute('fill','#3F5E3A');r.setAttribute('stroke','#1E1B16');
   svg.appendChild(r);
 });
+async function runPlan(){
+  const r=await fetch('http://127.0.0.1:8000/glut/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plots:[{id:1,area:1,crop:'wheat',week:0,moved_last:false}],crop_params:{wheat:{P0:2000,yield:10,cost:500,weeks:[0,1],demand:50}}})});
+  const d=await r.json();
+  document.getElementById('kyun').textContent=JSON.stringify(d);
+  document.getElementById('kyun').style.display='block';
+}
 function showKyun(){document.getElementById('kyun').style.display='block';}
 </script>
 </body>
