@@ -9,7 +9,14 @@
 <h2>Fasal Doctor</h2>
 <input type="file" accept="image/*">
 <select><option>Demo: blight</option><option>Demo: rust</option></select>
-<button>Analyze</button>
+<button onclick="analyze()">Analyze</button>
+<script>
+async function analyze(){
+  const r=await fetch('http://127.0.0.1:8000/doctor/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({condition:'blight',confidence:0.8})});
+  const d=await r.json();
+  alert(JSON.stringify(d));
+}
+</script>
 <p>expert se poochho if confidence &lt; 0.7</p>
 <h2>Alerts</h2><div id="alerts">No alerts.</div>
 </body>
