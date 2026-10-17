@@ -7,6 +7,14 @@
 <h1>Gaon Sanjha</h1>
 <p>नमूना डेटा / Sample data · सिमुलेशन</p>
 <h2>Tractor Calendar</h2><div id="tractor">Fair order by prior services.</div>
+<button onclick="loadTractor()">Load</button>
+<script>
+async function loadTractor(){
+  const r=await fetch('http://127.0.0.1:8000/tractor/schedule',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({requests:[{prev_served_count:1,want_date:'2026-10-20'},{prev_served_count:0,want_date:'2026-10-19'}]})});
+  const d=await r.json();
+  document.getElementById('tractor').textContent=JSON.stringify(d);
+}
+</script>
 <h2>Bijli Window</h2><div id="bijli">Best 3-hour window.</div>
 <h2>Sinchai Card</h2><div id="sinchai">Plot: irrigate / wait / skip.</div>
 </body>
