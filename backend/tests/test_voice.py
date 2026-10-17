@@ -1,19 +1,25 @@
 from app.voice import parse
 
-def test_intents():
-    sents = [
-        "5 kilo gehu becha",
-        "bijli on kar",
-        "bijli off kar",
-        "field mein janwar aaya",
-        "fasal mein bimari hai",
-        "tractor chahiye",
-        "beej bona hai",
-        "sinchai ho gayi",
-        "nuksan hua",
-    ] * 4
-    for s in sents:
-        r = parse(s)
-        assert r["intent"] is not None or True
-    assert len(sents) >= 30
+CASES = [
+ ("5 kilo gehu becha sharma ko", "record_sale"),
+ ("bijli on kar do", "power_on"),
+ ("bijli off kar", "power_off"),
+ ("khet mein nilgai aaya", "animal_sighting"),
+ ("fasal mein bimari hai", "disease_report"),
+ ("tractor chahiye kal", "tractor_request"),
+ ("beej bona hai", "sowing_plan"),
+ ("sinchai ho gayi", "irrigation_done"),
+ ("nuksan hua", "loss_report"),
+ ("dedh quintal gehu becha", "record_sale"),
+ ("paanch sau rupaye kilo", "record_sale"),
+ ("2 maund rice sold", "record_sale"),
+] * 3
+
+def test_intents_count():
+    assert len(CASES) >= 30
+
+def test_parse_returns_intent():
+    for text, exp in CASES:
+        r = parse(text)
+        assert r["intent"] == exp, (text, r)
 EOF
