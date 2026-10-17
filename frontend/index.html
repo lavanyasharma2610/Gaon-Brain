@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<title>Gaon Brain - Awaaz Mode</title>
+<style>
+body{font-family:'Noto Sans Devanagari',sans-serif;background:#F4EFE3;color:#1E1B16;margin:0;padding:20px;}
+.mic{width:120px;height:120px;border-radius:50%;background:#B4492D;color:#fff;font-size:40px;border:none;cursor:pointer;}
+.transcript{margin:20px 0;padding:10px;border:1px solid #8A9096;min-height:40px;}
+.confirm{display:none;margin-top:10px;}
+</style>
+</head>
+<body>
+<h1>Ek Awaaz, Poora Gaon</h1>
+<p>नमूना डेटा / Sample data</p>
+<button class="mic" id="mic">🎤</button>
+<div class="transcript" id="transcript">Bolo...</div>
+<div class="confirm" id="confirm">
+  <button onclick="confirm('haan')">Haan</button>
+  <button onclick="confirm('nahi')">Nahi</button>
+</div>
+<script>
+const mic=document.getElementById('mic');
+const transcript=document.getElementById('transcript');
+const confirmBox=document.getElementById('confirm');
+let recognition;
+if('webkitSpeechRecognition' in window){
+  recognition=new webkitSpeechRecognition();
+  recognition.lang='hi-IN';
+  recognition.onresult=e=>{const t=e.results[0][0].transcript;transcript.textContent=t;send(t);};
+}
+mic.onclick=()=>{if(recognition)recognition.start();};
+async function send(text){
+  const r=await fetch('http://127.0.0.1:8000/voice/parse',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text})});
+  const d=await r.json();
+  if(d.status==='confirm') confirmBox.style.display='block';
+}
+async function confirm(ans){/* call /voice/confirm */ confirmBox.style.display='none';}
+</script>
+</body>
+</html>
+EOF
