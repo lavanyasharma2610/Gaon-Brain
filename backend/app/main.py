@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.db import init_db
 from app.routers_voice import router as voice_router
 from app.routers_bhav import router as bhav_router
+from app.routers_logbook import router as logbook_router
 
 app = FastAPI(title="Gaon Brain")
 
@@ -11,6 +12,7 @@ def startup():
 
 app.include_router(voice_router)
 app.include_router(bhav_router)
+app.include_router(logbook_router)
 
 @app.get("/health")
 def health():
