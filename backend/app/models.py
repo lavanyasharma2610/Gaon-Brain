@@ -34,4 +34,103 @@ class Event(SQLModel, table=True):
     ts: datetime = Field(default_factory=datetime.utcnow)
     payload: str = "{}"
     raw_text: Optional[str] = None
+
+class Sale(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    farmer_id: int
+    qty_kg: float
+    rate: float
+    ts: datetime = Field(default_factory=datetime.utcnow)
+
+class Buyer(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+
+class Lot(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    crop: str
+    week: int
+    expected_qty: float
+
+class Commitment(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    lot_id: int
+    buyer_id: int
+    qty: float
+
+class TractorRequest(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    farmer_id: int
+    want_date: str
+    prev_served_count: int = 0
+
+class PowerLog(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    feeder_id: int
+    hour: int
+    on_days: int
+    total_days: int
+
+class WaterSlot(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    plot_id: int
+    slot: str
+
+class Plan(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str
+
+class PlanItem(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    plan_id: int
+    plot_id: int
+    crop: str
+    week: int
+
+class Report(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    type: str
+    payload: str = "{}"
+
+class Claim(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    farmer_id: int
+    event_type: str
+    event_at: datetime
+    policy_no: Optional[str] = None
+    status: str = "unknown"
+
+class ClaimPhoto(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    claim_id: int
+    sha256: str
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+    ts: datetime = Field(default_factory=datetime.utcnow)
+
+class Purchase(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    farmer_id: int
+    product: str
+    mrp: float
+    paid: float
+    bill_received: bool = False
+
+class Consent(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    farmer_id: int
+    code: str
+    expires_at: datetime
+
+class MitraAudit(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    mitra_id: int
+    farmer_id: int
+    action: str
+    ts: datetime = Field(default_factory=datetime.utcnow)
+
+class Upload(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sha256: str
+    path: str
 EOF
