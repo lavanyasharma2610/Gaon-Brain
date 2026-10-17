@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head><meta charset="utf-8"><title>Gaon Plan</title>
+<style>body{font-family:sans-serif;background:#F4EFE3;color:#1E1B16;margin:20px;}svg{border:1px solid #8A9096;}</style>
+</head>
+<body>
+<h1>Gaon Plan</h1>
+<p>नमूना डेटा / Sample data · सिमुलेशन</p>
+<svg width="600" height="400" id="map"></svg>
+<script>
+const svg=document.getElementById('map');
+// sample plot polygons
+const plots=[[10,10,100,80],[120,20,90,70],[50,100,120,90]];
+plots.forEach((p,i)=>{
+  const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+  r.setAttribute('x',p[0]);r.setAttribute('y',p[1]);r.setAttribute('width',p[2]);r.setAttribute('height',p[3]);
+  r.setAttribute('fill','#3F5E3A');r.setAttribute('stroke','#1E1B16');r.setAttribute('stroke-width','1');
+  svg.appendChild(r);
+  const t=document.createElementNS('http://www.w3.org/2000/svg','text');
+  t.setAttribute('x',p[0]+5);t.setAttribute('y',p[1]+15);t.textContent='Plot '+(i+1);
+  svg.appendChild(t);
+});
+</script>
+</body>
+</html>
+EOF
