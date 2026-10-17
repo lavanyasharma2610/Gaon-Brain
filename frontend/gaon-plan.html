@@ -11,8 +11,15 @@ svg{border:1px solid #8A9096;}
 <h1>Gaon Plan</h1>
 <p>नमूना डेटा / Sample data · सिमुलेशन</p>
 <svg width="600" height="400" id="map"></svg>
-<button onclick="showKyun()">Kyun?</button>
-<div class="drawer" id="kyun">Is plot ko wheat week 2 assign kiya: expected profit vs baseline.</div>
+<button onclick="runPlan()">Run Plan</button>
+<script>
+async function runPlan(){
+  const r=await fetch('http://127.0.0.1:8000/glut/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plots:[{id:1,area:1,crop:'wheat',week:0,moved_last:false}],crop_params:{wheat:{P0:2000,yield:10,cost:500,weeks:[0,1],demand:50}}})});
+  const d=await r.json();
+  document.getElementById('kyun').textContent=JSON.stringify(d);
+  document.getElementById('kyun').style.display='block';
+}
+function showKyun(){document.getElementById('kyun').style.display='block';}
 <table id="plan"><tr><th>Plot</th><th>Crop</th><th>Week</th><th>Profit vs baseline</th></tr></table>
 <script>
 const svg=document.getElementById('map');
