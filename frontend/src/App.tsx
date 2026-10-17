@@ -1,8 +1,8 @@
 import React from 'react';
-import { Routes, Route, Link, NavLink } from 'react-router-dom';
+import { Routes, Route, NavLink } from 'react-router-dom';
 import './index.css';
 
-const PageLayout: React.FC<{title: string; children: React.ReactNode}> = ({title, children}) => (
+const PageLayout: React.FC<{title?: string; children: React.ReactNode}> = ({title: _title, children}) => (
   <div style={{minHeight:'100vh',padding:'20px',fontFamily:'sans-serif'}}>
     <header style={{marginBottom:'20px',borderBottom:'1px solid var(--river)',paddingBottom:'10px'}}>
       <h1>Gaon Brain</h1>
@@ -188,7 +188,7 @@ const Radar = () => {
         <option>Demo: rust</option>
       </select>
       <button onClick={analyze} style={{minHeight:48,padding:'10px 16px',fontSize:18}}>Analyze</button>
-      <p style={{marginTop:'10px',color:'var(--terracotta)'}}>expert se poochho if confidence < 0.7</p>
+      <p style={{marginTop:'10px',color:'var(--terracotta)'}}>expert se poochho if confidence {'<'} 0.7</p>
       <h2 style={{marginTop:'20px'}}>Alerts</h2>
       <pre style={{background:'#fff',padding:10,border:'1px solid var(--river)',whiteSpace:'pre-wrap'}}>{result || 'No alerts.'}</pre>
     </PageLayout>
@@ -214,9 +214,9 @@ const Bazaar = () => {
       <h2 style={{marginTop:'20px'}}>Payments</h2>
       <p>Overdue flags.</p>
       <h2 style={{marginTop:'20px'}}>Buyer Trust</h2>
-      <p>Score (n shown, hide if n<3).</p>
+      <p>Score (n shown, hide if n{'<'}3).</p>
       <h2 style={{marginTop:'20px'}}>Productivity Benchmark</h2>
-      <p>Anonymous benchmark (groups >=5).</p>
+      <p>Anonymous benchmark (groups {'>='}5).</p>
       <h2 style={{marginTop:'20px'}}>Season Report</h2>
       <p>Per-farmer yield/cost/revenue/profit.</p>
     </PageLayout>
@@ -307,4 +307,3 @@ function App() {
 import { Navigate } from 'react-router-dom';
 
 export default App;
-EOF
