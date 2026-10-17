@@ -11,7 +11,11 @@
 <button onclick="runShock('price_drop')">Price drop</button>
 <div id="chain">Radar > Yield > Bazaar > Glut re-plan > Sanjha rebalance</div>
 <script>
-function runShock(t){document.getElementById('chain').textContent='Running '+t+'... effects: Radar > Yield > Bazaar > Glut re-plan > Sanjha rebalance';}
+async function runShock(t){
+  const r=await fetch('http://127.0.0.1:8000/shock',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:t,plot_ids:[1,2,3],magnitude:1})});
+  const d=await r.json();
+  document.getElementById('chain').textContent=d.effects.join(' > ');
+}
 </script>
 </body>
 </html>
