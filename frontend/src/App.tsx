@@ -225,6 +225,7 @@ const Bazaar = () => {
 
 const Suraksha = () => {
   const [sinchai, setSinchai] = React.useState<string>('');
+  const [pdfStatus, setPdfStatus] = React.useState<string>('');
 
   const loadSinchai = async () => {
     const r = await fetch('http://127.0.0.1:8000/suraksha/sinchai', {
@@ -233,6 +234,49 @@ const Suraksha = () => {
     });
     const d = await r.json();
     setSinchai(d.result);
+  };
+
+  const generatePdf = async () => {
+    setPdfStatus('Generating PDF...');
+    const payload = {
+      farmer: "राम कुमार",
+      policy_no: "PMFBY-2026-001234",
+      survey_no: "SRV-5678",
+      crop: "गेहूं / Wheat",
+      area: 2.5,
+      event_type: "अतिवृष्टि / Excess Rainfall",
+      event_at: "2026-09-15",
+      policy_status: "active (स्वयं-रिपोर्टेड)",
+      sowing_record: {sown_on: "2026-06-20", crop: "Wheat", area_acre: 2.5, plot_id: 12},
+      photos: [
+        {sha256: "a1b2c3d4e5f6...".repeat(4), lat: 28.6139, lon: 77.2090, ts: "2026-09-15T10:30:00Z", weather: {rain_mm_48h: 45, prob: 0.85}},
+      ],
+      weather_snapshot: {rain_mm_48h: 45, prob: 0.85, temp: 28, humidity: 78},
+      purchases: [
+        {product: "यूरिया / Urea", mrp: 500, paid: 520, bill_received: false, dealer: "Sharma Agro"},
+      ],
+      dossier_hash: "deadbeef...".repeat(8),
+    };
+    try {
+      const r = await fetch('http://127.0.0.1:8000/suraksha/claim/pdf', {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      if (r.ok) {
+        const blob = await r.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'claim_kit.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        setPdfStatus('PDF downloaded successfully!');
+      } else {
+        setPdfStatus('Error generating PDF');
+      }
+    } catch (e: unknown) {
+      setPdfStatus('Error: ' + (e as Error).message);
+    }
   };
 
   return (
@@ -244,6 +288,8 @@ const Suraksha = () => {
       <pre style={{background:'#fff',padding:10,border:'1px solid var(--river)',whiteSpace:'pre-wrap'}}>{sinchai || 'Plot: irrigate / wait / skip.'}</pre>
       <h2 style={{marginTop:'20px'}}>Claim Kit</h2>
       <p>72-hour countdown, photos GPS+SHA256, PDF dossier.</p>
+      <button onClick={generatePdf} style={{minHeight:48,padding:'10px 16px',fontSize:18,marginBottom:'10px',background:'var(--indigo)'}}>Generate Claim Kit PDF</button>
+      {pdfStatus && <p style={{color:'var(--field)',marginTop:'10px'}}>{pdfStatus}</p>}
       <h2 style={{marginTop:'20px'}}>Kharid Check</h2>
       <p>Overcharge, missing bill, complaint draft.</p>
       <h2 style={{marginTop:'20px'}}>Village Mitra</h2>

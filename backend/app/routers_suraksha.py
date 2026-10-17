@@ -1,5 +1,7 @@
-from fastapi import APIRouter
+import tempfile
+from fastapi import APIRouter, Response
 from app.suraksha import sinchai_card, kharid_check, claim_kit
+from app.claim_pdf import generate_claim_kit_pdf
 
 router = APIRouter()
 
@@ -14,4 +16,31 @@ def kharid(payload: dict):
 @router.post("/suraksha/claim")
 def claim(payload: dict):
     return claim_kit(payload.get("farmer",""), payload.get("policy",""), payload.get("survey",""), payload.get("crop",""), payload.get("area",0))
+
+@router.post("/suraksha/claim/pdf")
+def claim_pdf(payload: dict):
+    # Build full dossier data from payload
+    dossier = {
+        "farmer": payload.get("farmer", ""),
+        "policy_no": payload.get("policy_no", ""),
+        "survey_no": payload.get("survey_no", ""),
+        "crop": payload.get("crop", ""),
+        "area": payload.get("area", 0),
+        "event_type": payload.get("event_type", ""),
+        "event_at": payload.get("event_at", ""),
+        "policy_status": payload.get("policy_status", "unknown"),
+        "sowing_record": payload.get("sowing_record", {}),
+        "photos": payload.get("photos", []),
+        "weather_snapshot": payload.get("weather_snapshot", {}),
+        "purchases": payload.get("purchases", []),
+        "dossier_hash": payload.get("dossier_hash", ""),
+    }
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as f:
+        path = f.name
+    generate_claim_kit_pdf(dossier, path)
+    with open(path, "rb") as f:
+        pdf_bytes = f.read()
+    import os
+    os.unlink(path)
+    return Response(content=pdf_bytes, media_type="application/pdf", headers={"Content-Disposition": "attachment; filename=claim_kit.pdf"})
 EOF
