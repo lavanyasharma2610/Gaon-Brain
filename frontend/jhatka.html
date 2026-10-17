@@ -1,3 +1,18 @@
-<!DOCTYPE html><html lang="hi"><head><meta charset="utf-8"><title>Jhatka Panel</title>
-<style>body{font-family:sans-serif;background:#F4EFE3;color:#1E1B16;margin:20px;}</style></head>
-<body><h1>Jhatka Panel</h1><p>नमूना डेटा / Sample data · सिमुलेशन</p></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head><meta charset="utf-8"><title>Jhatka Panel</title>
+<style>body{font-family:sans-serif;background:#F4EFE3;color:#1E1B16;margin:20px;}</style>
+</head>
+<body>
+<h1>Jhatka Panel (Shock Chain)</h1>
+<p>नमूना डेटा / Sample data · सिमुलेशन</p>
+<button onclick="runShock('disease')">Blight on 3 plots</button>
+<button onclick="runShock('rain')">Heavy rain</button>
+<button onclick="runShock('price_drop')">Price drop</button>
+<div id="chain">Radar > Yield > Bazaar > Glut re-plan > Sanjha rebalance</div>
+<script>
+function runShock(t){document.getElementById('chain').textContent='Running '+t+'... effects: Radar > Yield > Bazaar > Glut re-plan > Sanjha rebalance';}
+</script>
+</body>
+</html>
+EOF
