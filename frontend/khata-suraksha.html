@@ -7,10 +7,18 @@
 <h1>Khata Suraksha</h1>
 <p>नमूना डेटा / Sample data · सिमुलेशन</p>
 <h2>Bhav Tulna</h2><div id="bhav">Modal price vs sold rate.</div>
-<h2>Sinchai Card</h2><div id="sinchai">Skip/irrigate/wait.</div>
+<h2>Sinchai Card</h2><div id="sinchai">Plot: irrigate / wait / skip.</div>
+<button onclick="loadSinchai()">Load Sinchai</button>
 <h2>Claim Kit</h2><div id="claim">72-hour countdown, photos GPS+SHA256, PDF dossier.</div>
 <h2>Kharid Check</h2><div id="kharid">Overcharge, missing bill, complaint draft.</div>
 <h2>Village Mitra</h2><div id="mitra">4-digit consent code, 24h, audit.</div>
+<script>
+async function loadSinchai(){
+  const r=await fetch('http://127.0.0.1:8000/suraksha/sinchai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plot:{},weather:{rain_mm_48h:0,prob:0.2},crop_interval:5,days_since:6,health:1.0})});
+  const d=await r.json();
+  document.getElementById('sinchai').textContent=d.result;
+}
+</script>
 </body>
 </html>
 EOF

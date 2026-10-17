@@ -8,6 +8,7 @@ from app.routers_shock import router as shock_router
 from app.routers_sanjha import router as sanjha_router
 from app.routers_radar import router as radar_router
 from app.routers_bazaar import router as bazaar_router
+from app.routers_suraksha import router as suraksha_router
 
 app = FastAPI(title="Gaon Brain")
 
@@ -23,6 +24,7 @@ app.include_router(shock_router)
 app.include_router(sanjha_router)
 app.include_router(radar_router)
 app.include_router(bazaar_router)
+app.include_router(suraksha_router)
 
 @app.get("/health")
 def health():
