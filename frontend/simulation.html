@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head><meta charset="utf-8"><title>Simulation</title>
+<style>body{font-family:sans-serif;background:#F4EFE3;color:#1E1B16;margin:20px;}</style>
+</head>
+<body>
+<h1>Simulation</h1>
+<p>नमूना डेटा / Sample data · सिमुलेशन</p>
+<label>Adoption: <input type="range" min="0" max="100" value="60" id="alpha"> <span id="av">60</span>%</label>
+<canvas id="chart" width="500" height="200"></canvas>
+<script>
+const sl=document.getElementById('alpha');const av=document.getElementById('av');
+sl.oninput=()=>{av.textContent=sl.value;};
+</script>
+</body>
+</html>
+EOF
