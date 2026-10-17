@@ -1,11 +1,11 @@
 :root {
-  --paper: #F4EFE3;
-  --ink: #1E1B16;
-  --field: #3F5E3A;
-  --turmeric: #C98A12;
-  --terracotta: #B4492D;
-  --indigo: #2F3E6B;
-  --river: #8A9096;
+  --paper: #FDFBF7;
+  --ink: #2D2B28;
+  --field: #6B8E66;
+  --turmeric: #E8C56D;
+  --terracotta: #D49A8B;
+  --indigo: #7A8FC7;
+  --river: #B8BCC0;
 }
 
 body {
@@ -31,23 +31,57 @@ button:hover {
   opacity: 0.9;
 }
 
+button:focus-visible {
+  outline: 3px solid var(--turmeric);
+  outline-offset: 2px;
+}
+
 a {
   text-decoration: none;
+  color: var(--indigo);
 }
 
 a:hover {
   text-decoration: underline;
 }
 
+a:focus-visible {
+  outline: 3px solid var(--turmeric);
+  outline-offset: 2px;
+}
+
 input, select {
   font-size: 16px;
   padding: 8px;
-  border: 1px solid var(--river);
+  border: 2px solid var(--river);
   border-radius: 4px;
-  background: #fff;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--field);
+  box-shadow: 0 0 0 3px rgba(107, 142, 102, 0.3);
 }
 
 pre {
   font-family: inherit;
+  background: var(--paper);
+  border: 1px solid var(--river);
+  border-radius: 4px;
+  padding: 12px;
 }
-EOF
+
+:focus-visible {
+  outline: 3px solid var(--turmeric);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
