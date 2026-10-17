@@ -1,4 +1,4 @@
-import re, json
+import re
 
 NUMBER_WORDS = {"ek":1,"do":2,"teen":3,"char":4,"paanch":5,"cheh":6,"saat":7,"aath":8,"nau":9,"das":10,"gyarah":11,"barah":12,"pandrah":15,"bis":20,"pachis":25,"tees":30,"pachas":50,"sau":100,"hazar":1000,"dedh":1.5,"sadhe":1.5,"paune":0.75}
 
@@ -95,4 +95,3 @@ def parse(text):
         "missing": missing,
         "raw": text,
     }
-EOF

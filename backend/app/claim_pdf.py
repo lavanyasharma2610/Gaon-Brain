@@ -1,13 +1,20 @@
 import os
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import mm
+from datetime import datetime, timezone
+
 from reportlab.lib.colors import HexColor
+from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
-from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
-from datetime import datetime
+from reportlab.platypus import (
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle,
+)
 
 # Colors matching design tokens
 INK = HexColor("#1E1B16")
@@ -30,7 +37,7 @@ if os.path.exists(NOTO_REGULAR):
         if os.path.exists(NOTO_BOLD):
             pdfmetrics.registerFont(TTFont("NotoDevanagari-Bold", NOTO_BOLD))
         _hindi_font_registered = True
-    except:
+    except Exception:
         pass
 
 HINDI_FONT = "NotoDevanagari" if _hindi_font_registered else "Helvetica"
@@ -92,7 +99,7 @@ def generate_claim_kit_pdf(data: dict, output_path: str) -> str:
         textColor=INK,
         leading=14,
     )
-    label_style = ParagraphStyle(
+    ParagraphStyle(
         "LabelStyle",
         parent=styles["Normal"],
         fontName=HINDI_FONT_BOLD,
@@ -100,7 +107,7 @@ def generate_claim_kit_pdf(data: dict, output_path: str) -> str:
         textColor=FIELD,
         leading=14,
     )
-    value_style = ParagraphStyle(
+    ParagraphStyle(
         "ValueStyle",
         parent=styles["Normal"],
         fontName=HINDI_FONT,
@@ -298,7 +305,7 @@ def generate_claim_kit_pdf(data: dict, output_path: str) -> str:
 
     # Generation timestamp
     story.append(Paragraph(
-        f"निर्मित: {datetime.utcnow().isoformat()} UTC",
+        f"निर्मित: {datetime.now(timezone.utc).isoformat()} UTC",
         small_style
     ))
 

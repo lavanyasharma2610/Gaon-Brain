@@ -9,4 +9,3 @@ def bijli_window(power_logs, min_days=5):
 
 def irrigation_slots(plots, budget_hours, crop_interval):
     return [{"plot_id": p["id"], "slot": "morning"} for p in plots]
-EOF

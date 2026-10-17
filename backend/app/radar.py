@@ -1,5 +1,6 @@
 import math
 
+
 def haversine(lat1,lon1,lat2,lon2):
     R=6371
     dlat=math.radians(lat2-lat1); dlon=math.radians(lon2-lon1)
@@ -11,4 +12,3 @@ def alerts(reports, N=3, R=2.0, D=5):
 
 def heatmap(reports):
     return []
-EOF

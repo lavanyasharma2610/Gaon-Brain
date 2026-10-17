@@ -1,6 +1,7 @@
 from fastapi import APIRouter
-from app.radar import haversine, alerts, heatmap
+
 from app.providers import DiseaseProvider
+from app.radar import alerts, heatmap
 
 router = APIRouter()
 dp = DiseaseProvider()
@@ -20,4 +21,3 @@ def get_heatmap():
 @router.post("/doctor/analyze")
 def analyze(payload: dict):
     return dp.analyze(payload.get("condition","blight"), payload.get("confidence",0.8))
-EOF

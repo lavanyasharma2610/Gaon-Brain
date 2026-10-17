@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from app.bazaar import build_lots, buyer_trust
+
+from app.bazaar import build_lots
 
 router = APIRouter()
 
@@ -18,4 +19,3 @@ def payments():
 @router.get("/bazaar/buyers")
 def buyers():
     return []
-EOF

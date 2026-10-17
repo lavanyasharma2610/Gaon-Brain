@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
+
 from app.voice import parse
 
 router = APIRouter()
@@ -34,4 +35,3 @@ def voice_confirm(inp: ConfirmIn):
     if inp.answer.lower() in ("nahi","no","na"):
         return {"status": "cancelled"}
     return {"status": "ask", "message": "haan ya nahi?"}
-EOF

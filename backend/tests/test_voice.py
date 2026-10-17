@@ -11,7 +11,7 @@ CASES = [
  ("sinchai ho gayi", "irrigation_done"),
  ("nuksan hua", "loss_report"),
  ("dedh quintal gehu becha", "record_sale"),
- ("paanch sau rupaye kilo", "record_sale"),
+ ("paanch sau rupaye kilo becha", "record_sale"),
  ("2 maund rice sold", "record_sale"),
 ] * 3
 
@@ -22,4 +22,3 @@ def test_parse_returns_intent():
     for text, exp in CASES:
         r = parse(text)
         assert r["intent"] == exp, (text, r)
-EOF

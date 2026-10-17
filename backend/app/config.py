@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings
 
+
 class Settings(BaseSettings):
     price_provider: str = "csv"
     weather_provider: str = "sample"
@@ -10,4 +11,3 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 settings = Settings()
-EOF

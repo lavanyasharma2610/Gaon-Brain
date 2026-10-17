@@ -8,4 +8,3 @@ def buyer_trust(payments):
     if n < 3:
         return None
     return (on_time+1)/(n+2)
-EOF

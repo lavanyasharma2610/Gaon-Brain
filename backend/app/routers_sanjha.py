@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from app.sanjha import tractor_schedule, bijli_window, irrigation_slots
+
+from app.sanjha import bijli_window, irrigation_slots, tractor_schedule
 
 router = APIRouter()
 
@@ -14,4 +15,3 @@ def pw():
 @router.post("/water/slots")
 def ws(payload: dict):
     return irrigation_slots(payload.get("plots",[]), payload.get("budget",10), payload.get("interval",5))
-EOF

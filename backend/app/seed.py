@@ -1,8 +1,11 @@
 import random
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
+
+from sqlmodel import SQLModel
+
 from app.db import engine, get_session
 from app.models import *
-from sqlmodel import SQLModel
+
 
 def seed():
     SQLModel.metadata.create_all(engine)
@@ -39,11 +42,10 @@ def seed():
         c = Commitment(lot_id=l.id, buyer_id=random.choice(buyers).id, qty=round(random.uniform(10,100),2))
         s.add(c)
     s.commit()
-    tractors = []
     for i in range(3):
         pass
     for i in range(8):
-        tr = TractorRequest(farmer_id=random.choice(farmers).id, want_date=(datetime.utcnow()+timedelta(days=random.randint(0,10))).date().isoformat(), prev_served_count=random.randint(0,3))
+        tr = TractorRequest(farmer_id=random.choice(farmers).id, want_date=(datetime.now(UTC)+timedelta(days=random.randint(0,10))).date().isoformat(), prev_served_count=random.randint(0,3))
         s.add(tr)
     s.commit()
     feeders = [1,2]
@@ -65,17 +67,16 @@ def seed():
         pur = Purchase(farmer_id=random.choice(farmers).id, product="urea", mrp=500, paid=random.choice([480,520,500]), bill_received=random.choice([True,False]))
         s.add(pur)
     s.commit()
-    cons = Consent(farmer_id=farmers[0].id, code="1234", expires_at=datetime.utcnow()+timedelta(hours=24))
+    cons = Consent(farmer_id=farmers[0].id, code="1234", expires_at=datetime.now(UTC)+timedelta(hours=24))
     s.add(cons); s.commit()
     with open("data/mandi.csv","w") as fh:
         fh.write("# SYNTHETIC DATA\n")
         fh.write("date,crop,price\n")
         for d in range(60):
-            dt = (datetime.utcnow()-timedelta(days=d)).date()
+            dt = (datetime.now(UTC)-timedelta(days=d)).date()
             for c in crops:
                 fh.write(f"{dt},{c},{round(random.uniform(1800,3200),2)}\n")
     print("seeded")
 
 if __name__ == "__main__":
     seed()
-EOF

@@ -12,4 +12,3 @@ def kharid_check(product, mrp, paid, bill_received, dealer):
 
 def claim_kit(farmer, policy, survey, crop, area):
     return {"farmer": farmer, "policy": policy, "survey": survey, "crop": crop, "area": area}
-EOF

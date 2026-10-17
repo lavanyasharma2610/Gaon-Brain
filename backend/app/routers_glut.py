@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from app.glut import plan
 
 router = APIRouter()
@@ -14,4 +15,3 @@ def glut_plan(payload: dict):
 @router.post("/glut/apply")
 def glut_apply(payload: dict):
     return {"applied": True, "plan": plan(payload.get("plots",[]), payload.get("crop_params",{}))}
-EOF

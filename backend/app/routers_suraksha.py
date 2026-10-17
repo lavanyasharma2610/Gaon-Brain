@@ -1,7 +1,9 @@
 import tempfile
+
 from fastapi import APIRouter, Response
-from app.suraksha import sinchai_card, kharid_check, claim_kit
+
 from app.claim_pdf import generate_claim_kit_pdf
+from app.suraksha import claim_kit, kharid_check, sinchai_card
 
 router = APIRouter()
 
@@ -43,4 +45,3 @@ def claim_pdf(payload: dict):
     import os
     os.unlink(path)
     return Response(content=pdf_bytes, media_type="application/pdf", headers={"Content-Disposition": "attachment; filename=claim_kit.pdf"})
-EOF

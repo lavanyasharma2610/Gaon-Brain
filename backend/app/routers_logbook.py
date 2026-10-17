@@ -1,7 +1,8 @@
 from fastapi import APIRouter
+from sqlmodel import select
+
 from app.db import get_session
 from app.models import Event
-from sqlmodel import select
 
 router = APIRouter()
 
@@ -9,4 +10,3 @@ router = APIRouter()
 def logbook():
     s = get_session()
     return s.exec(select(Event)).all()
-EOF

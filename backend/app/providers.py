@@ -1,4 +1,6 @@
-import csv, os
+import csv
+import os
+
 
 class PriceProvider:
     def __init__(self, path="data/mandi.csv"):
@@ -8,10 +10,13 @@ class PriceProvider:
             return None
         prices = []
         with open(self.path) as f:
-            for row in csv.DictReader(f):
-                if row.get("crop")==crop:
-                    try: prices.append(float(row["price"]))
-                    except: pass
+            # Skip comment lines starting with #
+            lines = [line for line in f if not line.startswith('#')]
+        reader = csv.DictReader(lines)
+        for row in reader:
+            if row.get("crop")==crop:
+                try: prices.append(float(row["price"]))
+                except Exception: pass
         return sum(prices)/len(prices) if prices else None
 
 class WeatherProvider:
@@ -21,4 +26,3 @@ class WeatherProvider:
 class DiseaseProvider:
     def analyze(self, condition, confidence):
         return {"condition": condition, "confidence": confidence}
-EOF

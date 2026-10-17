@@ -48,4 +48,3 @@ def plan(plots, crop_params, K=0.05, max_iter=10):
         explanations[p["id"]] = f"crop={c} week={w}; expected profit vs baseline"
     worse_off = 0  # floor check guarantees
     return {"assignment": assignment, "explanations": explanations, "farmers_worse_off": worse_off, "iterations": it+1}
-EOF

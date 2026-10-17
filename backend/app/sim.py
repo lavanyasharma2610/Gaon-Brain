@@ -16,4 +16,3 @@ def shock(history, kind, magnitude):
 
 def backtest(csv_rows):
     return {"mae": 0.0}
-EOF
