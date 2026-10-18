@@ -1,24 +1,13 @@
 import React from 'react';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import './index.css';
+import { Header, MobileTabBar } from './components/Header';
+import { Strip3Line } from './components/Strip3Line';
+import LandingPage from './pages/LandingPage';
 
 const PageLayout: React.FC<{title?: string; children: React.ReactNode}> = ({title: _title, children}) => (
   <div style={{minHeight:'100vh',padding:'20px',fontFamily:'sans-serif'}}>
-    <header style={{marginBottom:'20px',borderBottom:'1px solid var(--river)',paddingBottom:'10px'}}>
-      <h1>Gaon Brain</h1>
-      <p style={{fontSize:'14px',color:'var(--river)'}}>नमूना डेटा / Sample data · सिमुलेशन</p>
-      <nav style={{display:'flex',gap:'10px',flexWrap:'wrap',marginTop:'10px'}}>
-        <NavLink to="/awaaz" style={{color:'var(--indigo)'}}>Ek Awaaz</NavLink>
-        <NavLink to="/plan" style={{color:'var(--indigo)'}}>Gaon Plan</NavLink>
-        <NavLink to="/sanjha" style={{color:'var(--indigo)'}}>Gaon Sanjha</NavLink>
-        <NavLink to="/radar" style={{color:'var(--indigo)'}}>Gaon Radar</NavLink>
-        <NavLink to="/bazaar" style={{color:'var(--indigo)'}}>Gaon Bazaar</NavLink>
-        <NavLink to="/suraksha" style={{color:'var(--indigo)'}}>Khata Suraksha</NavLink>
-        <NavLink to="/simulation" style={{color:'var(--indigo)'}}>Simulation</NavLink>
-        <NavLink to="/jhatka" style={{color:'var(--indigo)'}}>Jhatka</NavLink>
-      </nav>
-    </header>
-    <main>{children}</main>
+    {children}
   </div>
 );
 
@@ -335,21 +324,26 @@ const Jhatka = () => {
 };
 
 function App() {
+  const [lang, setLang] = React.useState<'hi' | 'en'>('hi');
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/awaaz" replace />} />
-      <Route path="/awaaz" element={<Awaaz />} />
-      <Route path="/plan" element={<Plan />} />
-      <Route path="/sanjha" element={<Sanjha />} />
-      <Route path="/radar" element={<Radar />} />
-      <Route path="/bazaar" element={<Bazaar />} />
-      <Route path="/suraksha" element={<Suraksha />} />
-      <Route path="/simulation" element={<Simulation />} />
-      <Route path="/jhatka" element={<Jhatka />} />
-    </Routes>
+    <>
+      <Header lang={lang} setLang={setLang} />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/awaaz" element={<Awaaz />} />
+        <Route path="/plan" element={<Plan />} />
+        <Route path="/sanjha" element={<Sanjha />} />
+        <Route path="/radar" element={<Radar />} />
+        <Route path="/bazaar" element={<Bazaar />} />
+        <Route path="/suraksha" element={<Suraksha />} />
+        <Route path="/simulation" element={<Simulation />} />
+        <Route path="/jhatka" element={<Jhatka />} />
+      </Routes>
+      <MobileTabBar lang={lang} />
+    </>
   );
 }
 
-import { Navigate } from 'react-router-dom';
+
 
 export default App;
