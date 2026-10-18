@@ -1,11 +1,26 @@
-venv/
-.venv/
+# Dependency directories
 node_modules/
+# Build output
 dist/
-data/*.db
-data/uploads/
-.env
+build/
+# Vite cache
+.vite/
+# Python caches (if any)
 __pycache__/
+*.pyc
+# OS‑specific files
 .DS_Store
-.pytest_cache/
-
+Thumbs.db
+# IDE / editor settings
+.vscode/
+.idea/
+*.suo
+*.user
+*.log
+# Environment files
+.env
+.env.local
+.env.*.local
+# Miscellaneous
+*.tmp
+*.bak

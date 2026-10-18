@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './index.css';
 import { Header, MobileTabBar } from './components/Header';
 import { Strip3Line } from './components/Strip3Line';
