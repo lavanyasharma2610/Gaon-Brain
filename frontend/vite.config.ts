@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 5173,
+    host: true,
     proxy: {
       '/voice': 'http://127.0.0.1:8000',
       '/bhav': 'http://127.0.0.1:8000',
