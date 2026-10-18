@@ -1,7 +1,9 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlmodel import Field, SQLModel
 
+def utc_now() -> datetime:
+    return datetime.now(timezone.utc)
 
 class Village(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -32,7 +34,7 @@ class Event(SQLModel, table=True):
     mitra_id: int | None = None
     lat: float | None = None
     lon: float | None = None
-    ts: datetime = Field(default_factory=datetime.utcnow)
+    ts: datetime = Field(default_factory=utc_now)
     payload: str = "{}"
     raw_text: str | None = None
 
@@ -41,7 +43,7 @@ class Sale(SQLModel, table=True):
     farmer_id: int
     qty_kg: float
     rate: float
-    ts: datetime = Field(default_factory=datetime.utcnow)
+    ts: datetime = Field(default_factory=utc_now)
 
 class Buyer(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -107,7 +109,7 @@ class ClaimPhoto(SQLModel, table=True):
     sha256: str
     lat: float | None = None
     lon: float | None = None
-    ts: datetime = Field(default_factory=datetime.utcnow)
+    ts: datetime = Field(default_factory=utc_now)
 
 class Purchase(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
@@ -128,7 +130,7 @@ class MitraAudit(SQLModel, table=True):
     mitra_id: int
     farmer_id: int
     action: str
-    ts: datetime = Field(default_factory=datetime.utcnow)
+    ts: datetime = Field(default_factory=utc_now)
 
 class Upload(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
