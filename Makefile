@@ -7,8 +7,7 @@ seed:
 	cd backend && python -m app.seed
 
 dev:
-	python scripts/dev.py &
-	cd frontend && npm run dev
+	python scripts/dev.py
 
 test:
 	cd backend && python -m pytest -q
@@ -17,6 +16,5 @@ lint:
 	cd backend && ruff check .
 
 reset-demo:
-	rm -f data/*.db data/mandi.csv
+	rm -f backend/data/*.db backend/data/mandi.csv
 	make seed
-EOF

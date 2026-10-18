@@ -7,6 +7,7 @@ export default defineConfig({
     port: 5173,
     host: true,
     proxy: {
+      '/api': 'http://127.0.0.1:8000',
       '/voice': 'http://127.0.0.1:8000',
       '/bhav': 'http://127.0.0.1:8000',
       '/logbook': 'http://127.0.0.1:8000',

@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: gaon-brain
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PRICE_PROVIDER
+        value: csv
+      - key: WEATHER_PROVIDER
+        value: sample
+      - key: DISEASE_PROVIDER
+        value: demo
+      - key: OCR_PROVIDER
+        value: none
